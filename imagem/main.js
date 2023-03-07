@@ -8,6 +8,6 @@ function start(){
         play.classList.add('fa-pause');
     } else {
         play.classList.remove('fa-pause');
-        play.classList.add('fa-play');
+        play.classList.add('fa-play')
     }
 }
