@@ -32,3 +32,17 @@ function segundosParaMinutos(segundos){
     return minutos + ':' + segundosFormatados;
 }
 
+function updateTempo() {
+    const currentTime = audio.currentTime;
+    const duration = audio.duration;
+    const tempoDecorrido = segundosParaMinutos(currentTime);
+    const tempoRestante = segundosParaMinutos(duration - currentTime);
+    const tempoDecorridoElemento = document.getElementById('inicio');
+    const tempoRestanteElemento = document.getElementById('fim');
+    tempoDecorridoElemento.textContent = tempoDecorrido;
+    tempoRestanteElemento.textContent = tempoRestante;
+}
+
+setInterval(updateTempo, 1000);
+
+
