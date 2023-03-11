@@ -1,3 +1,4 @@
+
 // VARIAVEIS //
 const play = document.getElementById('play');
 const audio = document.querySelector('.barra #audio');
@@ -34,12 +35,32 @@ play.addEventListener('click', start);
 audio.addEventListener('timeupdate', Barra);
 proxima.addEventListener('click', () => {
   indexmsc++;
+  if (indexmsc > musicas.length - 1) {
+    indexmsc = 0;
+  }
   carregarmusica(indexmsc);
+  audio.play();
+
+  if (play.classList.contains('fa-play')) {
+    play.classList.remove('fa-play');
+    play.classList.add('fa-pause');
+  }
+  
 });
 anterior.addEventListener('click', () => {
   indexmsc--;
+  if (indexmsc < 0) {
+    indexmsc = musicas.length - 1;
+  }
   carregarmusica(indexmsc);
+  audio.play();
+
+  if (play.classList.contains('fa-play')) {
+    play.classList.remove('fa-play');
+    play.classList.add('fa-pause');
+  }
 });
+
 
 // FUNÇÕES //
 
@@ -77,17 +98,23 @@ function Barra() {
   inicio.textContent = SecundsForMinutes(Math.floor(audio.currentTime));
 
   let fim = document.getElementById('fim');
-  let duracao = audio.duration;
-  let tempoRestante = duracao - audio.currentTime;
-  fim.textContent = SecundsForMinutes(tempoRestante);
-}
-function SecundsForMinutes(segundos){
-    let minutos = Math.floor(segundos / 60);
-    let segundosrestantes = Math.floor(segundos % 60);
-    let segundosformatados = segundosrestantes < 10 ? '0' + segundosrestantes : segundosrestantes;
-    return minutos + ':' + segundosformatados;
+  
+  // Verifica se a duração do áudio já foi carregada
+  if (!isNaN(audio.duration)) {
+    let duracao = audio.duration;
+    let tempoRestante = duracao - audio.currentTime;
+    fim.textContent = SecundsForMinutes(tempoRestante);
+  }
 }
 
+
+function SecundsForMinutes(segundos) {
+  let minutos = Math.floor(segundos / 60);
+  let segundosrestantes = Math.floor(segundos % 60);
+  let segundosformatados = segundosrestantes < 10 ? '0' + segundosrestantes : segundosrestantes;
+    return minutos + ':' + segundosformatados;
+}
+ 
 
 
 
